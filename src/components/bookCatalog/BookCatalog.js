@@ -31,13 +31,12 @@ const BookCatalog = () => {
             title: book.title,
             cover_id: book.cover_i,
             author_name: book.author_name,
-            public_rating: book.public_rating,
+            public_rating: book.ratings_average,
             published_year: book.first_published_year,
           }
         })
 
         const formattedBooks = []
-
         for (let i = 0; i < books.length; i++) {
           if (books[i]?.cover_id) {
             formattedBooks.push(books[i])
@@ -50,6 +49,7 @@ const BookCatalog = () => {
       }
       setIsLoading(false)
     })
+
     return () => {
       clearTimeout(getData)
     }
@@ -70,7 +70,13 @@ const BookCatalog = () => {
           {!isLoading &&
             currentItems?.map((book) => <BookCard key={book.id} book={book} />)}
         </div>
-        {!isLoading && <Pagination />}
+        {!isLoading && (
+          <Pagination
+            setItemOffset={setItemOffset}
+            itemsPerPage={itemsPerPage}
+            books={books}
+          />
+        )}
       </div>
     </div>
   )
