@@ -8,10 +8,10 @@ export function signJwtToken(payload, options = {}) {
   return token
 }
 
-export async function verifyJwtToken(sesstionToken) {
+export async function verifyJwtToken(sessionToken) {
   try {
     const decoded = decode({
-      token: sesstionToken,
+      token: sessionToken,
       secret: process.env.NEXTAUTH_SECRET,
     })
     return decoded
