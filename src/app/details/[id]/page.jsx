@@ -48,6 +48,20 @@ const Details = (ctx) => {
     fetchDetails()
   }, [])
 
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const res = await fetch(`/api/review?bookId=${id}`)
+        const data = res.json()
+
+        setReviews(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchReviews()
+  }, [])
+
   const handleShowModal = () => setShowModal(true)
   const handleHideModal = () => setShowModal(false)
 
@@ -62,8 +76,8 @@ const Details = (ctx) => {
           <div className={classes.left}>
             <Image
               src={book?.cover_image}
-              height='750'
-              width='350'
+              height={600}
+              width={350}
               alt='Book cover'
             />
           </div>
@@ -93,6 +107,11 @@ const Details = (ctx) => {
               />
             )}
           </div>
+        </div>
+        <div className={classes.reviews}>
+          {reviews?.map((review) => (
+            <ReviewCard key={review._id} review={review} />
+          ))}
         </div>
       </div>
     </div>
