@@ -7,7 +7,7 @@ const BookCard = ({ book }) => {
   const coverImage = `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
   return (
     <Link href={`/details/${book.id}`} className={classes.container}>
-      <div className={classes.wrapp}>
+      <div className={classes.wrapper}>
         <Image src={coverImage} alt='book cover' height={275} width={175} />
       </div>
     </Link>
