@@ -2,6 +2,7 @@ import React from 'react'
 import woman_image from '../../../public/woman.jpg'
 import classes from './reviewCard.module.css'
 import Image from 'next/image'
+import { format } from 'timeago.js'
 
 const ReviewCard = ({ review }) => {
   return (

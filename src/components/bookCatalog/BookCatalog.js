@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import classes from './bookCatalog.module.css'
 import Pagination from '../pagination/Pagination'
 import BookCard from '../bookCard/BookCard'
+import { CircleLoader } from 'react-spinners'
 
 const BookCatalog = () => {
   const [title, setTitle] = useState('the lord of the rings')
@@ -65,7 +66,10 @@ const BookCatalog = () => {
           <h5>Catalog of Book</h5>
           <h2>Find your desire book</h2>
         </div>
-        {isLoading && <div className={classes.loader} />}
+        {isLoading && (
+          // <CircleLoader color='#159b15' loading='true' />
+          <div className={classes.loader} />
+        )}
         <div className={classes.books}>
           {!isLoading &&
             currentItems?.map((book) => <BookCard key={book.id} book={book} />)}

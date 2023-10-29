@@ -8,7 +8,6 @@ const Navbar = () => {
   const { data: session } = useSession()
 
   const isLoggedIn = Boolean(session?.user)
-  console.log(isLoggedIn)
 
   return (
     <div className={classes.container}>

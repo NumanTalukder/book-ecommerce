@@ -5,14 +5,18 @@ import Review from '@/models/Review'
 export async function GET(req) {
   await db.connect()
 
-  const url = new URL(req.url)
-  const bookId = url.searchParams.get('bookId')
-  const review = await Review.findOne({ bookId })
-    .limit(16)
-    .populate('userId')
-    .select('-password')
+  try {
+    const url = new URL(req.url)
+    const bookId = url.searchParams.get('bookId')
+    const reviews = await Review.find({ bookId })
+      .limit(16)
+      .populate('userId')
+      .select('-password')
 
-  return new Response(JSON.stringify(review), { status: 200 })
+    return new Response(JSON.stringify(reviews), { status: 200 })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export async function POST(req) {

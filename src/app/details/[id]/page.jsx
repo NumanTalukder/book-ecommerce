@@ -22,7 +22,6 @@ const Details = (ctx) => {
       try {
         const res = await fetch(URL)
         const data = await res.json()
-        console.log(data)
 
         // if book has no pages specified, make them 350 by default
         let pages = null
@@ -46,13 +45,13 @@ const Details = (ctx) => {
       }
     }
     fetchDetails()
-  }, [])
+  }, [URL, book])
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const res = await fetch(`/api/review?bookId=${id}`)
-        const data = res.json()
+        const data = await res.json()
 
         setReviews(data)
       } catch (error) {
@@ -60,14 +59,12 @@ const Details = (ctx) => {
       }
     }
     fetchReviews()
-  }, [])
+  }, [book])
 
   const handleShowModal = () => setShowModal(true)
   const handleHideModal = () => setShowModal(false)
 
   const handleAddToCart = () => {}
-
-  console.log(book)
 
   return (
     <div className={classes.container}>
@@ -76,8 +73,8 @@ const Details = (ctx) => {
           <div className={classes.left}>
             <Image
               src={book?.cover_image}
-              height={600}
-              width={350}
+              height='750'
+              width='350'
               alt='Book cover'
             />
           </div>
@@ -110,6 +107,7 @@ const Details = (ctx) => {
         </div>
         <div className={classes.reviews}>
           {reviews?.map((review) => (
+            // console.log(review)
             <ReviewCard key={review._id} review={review} />
           ))}
         </div>
