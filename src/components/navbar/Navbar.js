@@ -1,11 +1,14 @@
+'use client'
 import React from 'react'
 import classes from './navbar.module.css'
-import Link from 'next/link'
 import { signIn, signOut, useSession } from 'next-auth/react'
+import Link from 'next/link'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { useSelector } from 'react-redux'
 
 const Navbar = () => {
   const { data: session } = useSession()
+  const books = useSelector((state) => state.cart.books)
 
   const isLoggedIn = Boolean(session?.user)
 
@@ -33,7 +36,7 @@ const Navbar = () => {
           {isLoggedIn && (
             <Link href='/cart' className={classes.cartContainer}>
               <AiOutlineShoppingCart className={classes.cartIcon} />
-              <span className={classes.cartQuantity}>0</span>
+              <span className={classes.cartQuantity}>{books?.length}</span>
             </Link>
           )}
         </div>

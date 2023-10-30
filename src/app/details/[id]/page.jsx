@@ -6,11 +6,13 @@ import Image from 'next/image'
 import ReviewModal from '@/components/reviewModal/ReviewModal'
 import classes from './details.module.css'
 import ReviewCard from '@/components/reviewCard/ReviewCard'
+import { useDispatch } from 'react-redux'
+import { addBook } from '@/app/redux/cartSlice'
 
 const Details = (ctx) => {
   const id = ctx.params.id
   const URL = `https://openlibrary.org/works/${id}.json`
-
+  const dispatch = useDispatch()
   const [book, setBook] = useState({})
   const [reviews, setReviews] = useState([])
   const [showModal, setShowModal] = useState(false)
@@ -64,7 +66,15 @@ const Details = (ctx) => {
   const handleShowModal = () => setShowModal(true)
   const handleHideModal = () => setShowModal(false)
 
-  const handleAddToCart = () => {}
+  const handleAddToCart = () => {
+    dispatch(
+      addBook({
+        ...book,
+        quantity: 1,
+        price,
+      })
+    )
+  }
 
   return (
     <div className={classes.container}>
